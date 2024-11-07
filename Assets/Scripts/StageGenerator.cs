@@ -13,7 +13,6 @@ public class StageGenerator : MonoBehaviour
     public int startChipIndex;
     public int preInstantiate;
     public List<GameObject> generatedStageList = new List<GameObject>();
-    // Start is called before the first frame update
     void Start()
     {
         currentChipIndex = startChipIndex -1;
@@ -26,7 +25,6 @@ public class StageGenerator : MonoBehaviour
         if(charaPositionIndex + preInstantiate > currentChipIndex){
             UpdateStage(charaPositionIndex + preInstantiate);
         }
-        
     }
     void UpdateStage(int toChipIndex){
         if(toChipIndex <= currentChipIndex) return;
@@ -47,12 +45,10 @@ public class StageGenerator : MonoBehaviour
             Quaternion.identity
         );
         return stageObject;
-
     }
     void DestroyOldestStage(){
         GameObject oldStage = generatedStageList[0];
         generatedStageList.RemoveAt(0);
         Destroy(oldStage);
-        
     }
 }
