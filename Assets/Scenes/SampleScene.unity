@@ -690,7 +690,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: 20
   speedZ: 5
+  speedX: 3
   speedJump: 8
+  accelerationZ: 10
 --- !u!143 &1902348590
 CharacterController:
   m_ObjectHideFlags: 0
