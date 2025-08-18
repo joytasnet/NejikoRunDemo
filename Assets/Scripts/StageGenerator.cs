@@ -4,60 +4,51 @@ using UnityEngine;
 
 public class StageGenerator : MonoBehaviour
 {
-    const int StageChipSize = 30;
+    const int StageChipSize=30;
 
-    int currentChipIndex;//生成済みの最大index
+    int currentChipIndex;
 
     public Transform character;
     public GameObject[] stageChips;
     public int startChipIndex;
     public int preInstantiate;
     public List<GameObject> generatedStageList = new List<GameObject>();
-    // Start is called before the first frame update
     void Start()
     {
-        currentChipIndex = startChipIndex - 1;
+        currentChipIndex = startChipIndex -1;
         UpdateStage(preInstantiate);
     }
 
     void Update()
     {
-        int charaPositionIndex = (int)(character.position.z / StageChipSize);
-        if (charaPositionIndex + preInstantiate > currentChipIndex)
-        {
+        int charaPositionIndex = (int)(character.position.z/StageChipSize);
+        if(charaPositionIndex + preInstantiate > currentChipIndex){
             UpdateStage(charaPositionIndex + preInstantiate);
         }
-
     }
-    void UpdateStage(int toChipIndex)
-    {
-        if (toChipIndex <= currentChipIndex) return;
+    void UpdateStage(int toChipIndex){
+        if(toChipIndex <= currentChipIndex) return;
 
-        for (int i = currentChipIndex + 1; i <= toChipIndex; i++)
-        {
+        for(int i=currentChipIndex + 1;i <= toChipIndex;i++){
             GameObject stageObject = GenerateStage(i);
             generatedStageList.Add(stageObject);
         }
-        while (generatedStageList.Count > preInstantiate + 2) DestroyOldestStage();
+        while(generatedStageList.Count > preInstantiate + 2) DestroyOldestStage();
         currentChipIndex = toChipIndex;
 
     }
-    GameObject GenerateStage(int chipIndex)
-    {
-        int nextStageChip = Random.Range(0, stageChips.Length);
-        GameObject stageObject = Instantiate(
+    GameObject GenerateStage(int chipIndex){
+        int nextStageChip = Random.Range(0,stageChips.Length);
+        GameObject stageObject =Instantiate(
             stageChips[nextStageChip],
-            new Vector3(0, 0, chipIndex * StageChipSize),
+            new Vector3(0,0,chipIndex * StageChipSize),
             Quaternion.identity
         );
         return stageObject;
-
     }
-    void DestroyOldestStage()
-    {
+    void DestroyOldestStage(){
         GameObject oldStage = generatedStageList[0];
         generatedStageList.RemoveAt(0);
         Destroy(oldStage);
-
     }
 }
