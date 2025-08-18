@@ -15,22 +15,27 @@ public class NejikoController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator=GetComponent<Animator>();
-        
+        animator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(controller.isGrounded){
-            if(Input.GetAxis("Vertical") > 0.0f){
-                moveDirection.z = Input.GetAxis("Vertical")*speedZ;
-            }else{
-                moveDirection.z=0;
+        if (controller.isGrounded)
+        {
+            if (Input.GetAxis("Vertical") > 0.0f)
+            {
+                moveDirection.z = Input.GetAxis("Vertical") * speedZ;
             }
-            transform.Rotate(0,Input.GetAxis("Horizontal")*3,0);
+            else
+            {
+                moveDirection.z = 0;
+            }
+            transform.Rotate(0, Input.GetAxis("Horizontal") * 3, 0);
 
-            if(Input.GetButton("Jump")){
+            if (Input.GetButton("Jump"))
+            {
                 moveDirection.y = speedJump;
                 animator.SetTrigger("jump");
             }
@@ -40,8 +45,8 @@ public class NejikoController : MonoBehaviour
         Vector3 globalDirection = transform.TransformDirection(moveDirection);
         controller.Move(globalDirection * Time.deltaTime);
 
-        if(controller.isGrounded) moveDirection.y=0;
-        animator.SetBool("run",moveDirection.z > 0.0f);
-        
+        if (controller.isGrounded) moveDirection.y = 0;
+        animator.SetBool("run", moveDirection.z > 0.0f);
+
     }
 }
